@@ -1,0 +1,19 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://consent.google.com/m?continue=https://www.google.com/flights&gl=GR&m=0&pc=flt&cm=2&hl=en-US&src=1');
+  await page.getByRole('button', { name: 'Accept all' }).click();
+  await page.getByLabel('Where from?').click();
+  await page.getByText('Athens International Airport').click();
+  await page.getByRole('combobox', { name: 'Where to?' }).click();
+  await page.getByRole('combobox', { name: 'Where to?' }).fill('london');
+  await page.getByText('London, United Kingdom', { exact: true }).click();
+  await page.getByRole('button', { name: 'Search' }).click();
+  await page.getByText('day trips').click();
+  await page.getByRole('button', { name: 'Done.' }).click();
+  await page.getByRole('button', { name: 'Search' }).click();
+  await page.getByRole('button', { name: 'Monday, February 10,' }).click();
+  await page.getByRole('button', { name: 'Sunday, February 16, 2025,' }).click();
+  await page.getByRole('button', { name: 'Done. Search for round trip' }).click();
+  await page.getByRole('button', { name: 'Search' }).click();
+});
