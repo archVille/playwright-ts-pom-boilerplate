@@ -7,7 +7,7 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/Playwright/);
 });
 
-test('New google flights search', async ({ page }) => {
+test('Basic google flights search - straight from Capture > Shows basic title and Best option', async ({ page }) => {
   await page.goto('https://www.google.com/flights');
   await page.getByRole('button', { name: 'Accept all' }).click();
   await page.getByLabel('Where from?').click();
@@ -23,4 +23,7 @@ test('New google flights search', async ({ page }) => {
   await page.getByRole('button', { name: 'Sunday, February 16' }).click();
   await page.getByRole('button', { name: 'Done. Search for round trip' }).click();
   await page.getByRole('button', { name: 'Search' }).click();
+
+  await expect(page.getByRole('heading', { name: 'Top departing flights' })).toBeVisible();
+  await expect(page.getByRole('tab', { name: 'BestLearn more about ranking' })).toBeVisible();
 });
