@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-
-
 test('Getting dropdown touch down', async ({ page }) => {
     await page.goto('https://www.facebook.com/');
     await page.getByRole('button', { name: 'Allow all cookies' }).click();
