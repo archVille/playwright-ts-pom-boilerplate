@@ -4,7 +4,7 @@ import { beforeEach } from 'node:test';
 
 test.beforeEach(async ({ page }) => {  
     await page.goto('https://www.youtube.com/');  
-    await page.getByRole('button', { name: 'Accept the use of cookies and' }).click();
+    await page.getByRole('button', { name: 'Accept all' }).click();
 
 });
 

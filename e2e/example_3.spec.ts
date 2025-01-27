@@ -3,8 +3,7 @@ import { test, expect } from '@playwright/test';
 test('basic test into my youtube channel from the youtube - just adding page screenshots', async ({ page }) => {
     await page.goto('https://www.youtube.com/');
 
-    await test.step('Accept the use of cookies and data', async () => {
-    await page.getByRole('button', { name: 'Accept the use of cookies and' }).click();
+    await page.getByRole('button', { name: 'Accept all' }).click();
     });
 
     await test.step('Search for my channel', async () => {
