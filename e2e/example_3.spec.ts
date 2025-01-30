@@ -4,14 +4,14 @@ test('basic test into my youtube channel from the youtube - just adding page scr
     await page.goto('https://www.youtube.com/');
 
     await page.getByRole('button', { name: 'Accept all' }).click();
-    });
+  
 
     await test.step('Search for my channel', async () => {
     await page.getByRole('combobox', { name: 'Search' }).click();
     await page.getByRole('combobox', { name: 'Search' }).fill('panosperspective');
     await page.getByRole('combobox', { name: 'Search' }).press('Enter');
     });
-
+    
     // screenshot 1 
     await page.screenshot({ path: './screenshots/screenshot_search.png' });
 

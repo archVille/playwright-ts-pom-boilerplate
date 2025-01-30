@@ -19,7 +19,6 @@ test('basic test into my youtube channel from the youtube', async ({ page }) => 
 
     await page.getByRole('button', { name: 'Accept all' }).click();
     await page.getByRole('button', { name: 'Accept the use of cookies and' }).click();
-    });
 
     await test.step('Search for my channel', async () => {
     await page.getByRole('combobox', { name: 'Search' }).click();
@@ -46,5 +45,5 @@ test('basic test into my youtube channel from the youtube', async ({ page }) => 
     await page.getByRole('textbox', { name: 'Search' }).press('Enter');
     await expect(page.getByRole('main')).toContainText('Faroe Islands - Tjornuvik 4K 🇫🇴 #faroeislands #explorefaroeislands #visitfaroeislands');
     });
-
-});
+    
+  });
