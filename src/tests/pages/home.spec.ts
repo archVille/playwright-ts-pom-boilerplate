@@ -11,6 +11,11 @@ test.describe("Home Page", () => {
         expect(title).toBe("CodiLime's Knowledge Resources: Ebooks, Webinars, Podcasts");
     });
 
+    test("should have nine shortcut page links", async ({ homePage }) => {
+        const count = await homePage.page.locator("div[class*='w-80 rounded-lg']").count();
+        expect(count).toBe(9);
+    });
+
 });
 
 
