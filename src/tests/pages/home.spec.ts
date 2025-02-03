@@ -28,6 +28,16 @@ test.describe("Home Page", () => {
         }
       });
 
+      test("header bar components are visible", async ({ homePage }) => {
+        await expect(homePage.header.host).toBeVisible();
+        for (let link of Object.values(homePage.header.linksNavigation)) {
+          await expect(link).toBeVisible();
+        }
+        await expect(homePage.header.contactUsButton).toBeVisible();
+        await expect(homePage.header.homeIcon).toBeVisible();
+      });
+    
+
 });
 
 
