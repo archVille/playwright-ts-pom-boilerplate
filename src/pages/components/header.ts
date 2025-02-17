@@ -9,6 +9,12 @@ export default class Footer extends BasePageComponent {
       
     };
 
+    readonly hoverLinks = {
+      services: this.host.locator("span >> text=Services"),
+      // knowledge: this.host.hover("span >> text=Knowledge"),
+
+    };
+
     readonly contactUsButton = this.host.locator('a >> text=Contact Us');
 
     readonly homeIcon = this.host.locator("a[class*='logos-codilime']");

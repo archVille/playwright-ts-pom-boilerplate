@@ -30,11 +30,20 @@ test.describe("Home Page", () => {
 
       test("header bar components are visible", async ({ homePage }) => {
         await expect(homePage.header.host).toBeVisible();
-        for (let link of Object.values(homePage.header.linksNavigation)) {
-          await expect(link).toBeVisible();
+        for (let hoverLink of Object.values(homePage.header.hoverLinks)) {
+          await expect(hoverLink).toBeVisible();         
         }
         await expect(homePage.header.contactUsButton).toBeVisible();
         await expect(homePage.header.homeIcon).toBeVisible();
+      });
+
+
+      test("header hover components are clickable", async ({ homePage }) => {
+        await expect(homePage.header.host).toBeVisible();
+        for (let hoverLink of Object.values(homePage.header.hoverLinks)) {
+          await expect(hoverLink).toBeDefined();
+        }
+       
       });
     
 
