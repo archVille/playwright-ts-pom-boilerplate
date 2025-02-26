@@ -88,4 +88,43 @@ test.skip('Contrast check for important elements', async ({ }) => {
   }
 });
 
+test('Page should have unique IDs', async ({ }) => {
+
+  const idViolations = accessibilityScanResults.violations.filter(
+      (violation) => violation.id === 'duplicate-id'
+  );
+
+  expect(idViolations).toEqual([]);
+
+  if (idViolations.length > 0) {
+      console.error('Duplicate ID violations found:');
+      idViolations.forEach((violation) => {
+          console.error('Rule:', violation.id);
+          console.error('Description:', violation.description);
+          console.error('Impact:', violation.impact);
+          violation.nodes.forEach((node) => {
+              console.error('  Target:', node.target);
+              console.error('  HTML:', node.html);
+          });
+          console.error('---');
+      });
+  }
+});
+
+test('Images have alt text', async ({ }) => {
+  accessibilityScanResults = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa'])
+    .include('img') // Target only image elements
+    .analyze();
+
+  expect(accessibilityScanResults.violations).toEqual([]);
+
+  if (accessibilityScanResults.violations.length > 0) {
+    console.error('Image alt text violations:');
+    accessibilityScanResults.violations.forEach((violation) => {
+      // ... (Violation reporting)
+    });
+  }
+});
+
 });
