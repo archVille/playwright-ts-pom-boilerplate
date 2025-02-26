@@ -1,5 +1,6 @@
 import { test, expect } from "../../pageFixture";
 import AxeBuilder from "@axe-core/playwright";
+import { generateViolationError } from '../../utils/helper'; 
 
 let page;
 let labelViolations;
@@ -97,17 +98,7 @@ test('Page should have unique IDs', async ({ }) => {
   expect(idViolations).toEqual([]);
 
   if (idViolations.length > 0) {
-      console.error('Duplicate ID violations found:');
-      idViolations.forEach((violation) => {
-          console.error('Rule:', violation.id);
-          console.error('Description:', violation.description);
-          console.error('Impact:', violation.impact);
-          violation.nodes.forEach((node) => {
-              console.error('  Target:', node.target);
-              console.error('  HTML:', node.html);
-          });
-          console.error('---');
-      });
+    generateViolationError(accessibilityScanResults, 'Image alt text testing');
   }
 });
 
@@ -120,10 +111,46 @@ test('Images have alt text', async ({ }) => {
   expect(accessibilityScanResults.violations).toEqual([]);
 
   if (accessibilityScanResults.violations.length > 0) {
-    console.error('Image alt text violations:');
-    accessibilityScanResults.violations.forEach((violation) => {
-      // ... (Violation reporting)
-    });
+    generateViolationError(accessibilityScanResults, 'Image alt text testing');
+  }
+});
+
+test.skip('Links have discernible text', async ({ }) => {
+  const accessibilityScanResultsLinkElements = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa'])
+    .include('a') // Target only link elements
+    .analyze();
+
+  expect(accessibilityScanResultsLinkElements.violations).toEqual([]);
+
+  if (accessibilityScanResultsLinkElements.violations.length > 0) {
+    generateViolationError(accessibilityScanResultsLinkElements, 'Links testing');
+  }
+});
+
+test.skip('Form labels are correctly associated', async ({ }) => {
+  const accessibilityScanResultsWithInputsAndFormElements = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa'])
+    .include('input, select, textarea') // Target form elements
+    .analyze();
+
+  expect(accessibilityScanResultsWithInputsAndFormElements.violations).toEqual([]);
+
+  if (accessibilityScanResultsWithInputsAndFormElements.violations.length > 0) {
+    generateViolationError(accessibilityScanResultsWithInputsAndFormElements, 'Target form elements testing');
+  }
+});
+
+test.skip('Color contrast is sufficient', async ({  }) => {
+  const accessibilityScanResultsColorContrast = await new AxeBuilder({ page })
+    .withTags(['wcag2aa']) // Color contrast is primarily a level AA issue.
+    .analyze();
+
+  expect(accessibilityScanResultsColorContrast.violations).toEqual([]);
+
+  if (accessibilityScanResultsColorContrast.violations.length > 0) {
+    console.error('Color contrast violations:');
+    generateViolationError(accessibilityScanResultsColorContrast, 'Color contrast testings');
   }
 });
 
